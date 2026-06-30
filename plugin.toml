@@ -1,0 +1,42 @@
+id = "me/mango-layouts"
+name = "Mango Layouts"
+version = "1.0.0"
+min_noctalia = "5.0.0"
+author = "me"
+license = "MIT"
+tags = ["mango", "layout", "tiling"]
+icon = "layout"
+description = "Switch MangoWM tiling layouts with live preview and bidirectional sync via mmsg IPC."
+
+[[widget]]
+id = "switcher"
+entry = "widget.luau"
+
+  [[widget.setting]]
+  key = "cycle_on_click"
+  type = "bool"
+  label_key = "settings.cycle_on_click.label"
+  description_key = "settings.cycle_on_click.description"
+  default = true
+
+  [[widget.setting]]
+  key = "show_glyph"
+  type = "bool"
+  label_key = "settings.show_glyph.label"
+  default = true
+
+[service]
+id = "watcher"
+entry = "service.luau"
+
+[[panel]]
+id = "preview"
+entry = "panel.luau"
+width = 560
+height = 480
+placement = "floating"
+position = "center"
+
+[[shortcut]]
+id = "toggle"
+entry = "shortcut.luau"

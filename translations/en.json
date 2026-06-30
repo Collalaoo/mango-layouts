@@ -1,0 +1,18 @@
+{
+  "title": "Mango Layouts",
+  "cycle_on_click": "Layout: {name}",
+  "settings": {
+    "cycle_on_click": {
+      "label": "Cycle on click",
+      "description": "Click cycles to next layout instead of opening the panel."
+    },
+    "show_glyph": {
+      "label": "Show glyph"
+    }
+  },
+  "panel": {
+    "title": "Layout Switcher",
+    "click_to_switch": "Click to switch",
+    "not_available": "mmsg not found — install mangowm-utils"
+  }
+}
