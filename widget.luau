@@ -78,7 +78,7 @@ function onClick()
   if not mmsgAvail then return end
   if cycleOnClick then
     local idx = 1
-    for i, name in CYCLE_ORDER do
+    for i, name in ipairs(CYCLE_ORDER) do
       if name == currentLayout then
         idx = (i % #CYCLE_ORDER) + 1
         break

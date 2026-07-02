@@ -26,18 +26,18 @@ local function normalize(raw)
   raw = noctalia.string.trim(raw or "")
   if raw == "" then return nil end
   -- direct match by id or code
-  for _, l in LAYOUTS do
+  for _, l in ipairs(LAYOUTS) do
     if raw == l.id or raw == l.code then return l.id end
   end
   -- try extracting layout code from compound output (e.g. "1:T", "01:S")
   local code = raw:match(":(%w+)$")
   if code then
-    for _, l in LAYOUTS do
+    for _, l in ipairs(LAYOUTS) do
       if code == l.code then return l.id end
     end
   end
   -- try matching as a substring
-  for _, l in LAYOUTS do
+  for _, l in ipairs(LAYOUTS) do
     if raw:lower():find(l.id, 1, true) then return l.id end
   end
   return nil

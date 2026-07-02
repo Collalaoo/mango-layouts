@@ -192,7 +192,7 @@ end
 local function render()
   local rows = {}
   local row = {}
-  for i, layout in LAYOUTS do
+  for i, layout in ipairs(LAYOUTS) do
     table.insert(row, layoutCard(layout))
     if #row == 3 or i == #LAYOUTS then
       table.insert(rows, ui.row({ gap = 10, flexGrow = 1 }, row))
