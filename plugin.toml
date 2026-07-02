@@ -17,7 +17,7 @@ entry = "widget.luau"
   type = "bool"
   label_key = "settings.cycle_on_click.label"
   description_key = "settings.cycle_on_click.description"
-  default = true
+  default = false
 
   [[widget.setting]]
   key = "show_glyph"
