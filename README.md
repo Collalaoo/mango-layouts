@@ -22,16 +22,15 @@ A [Noctalia](https://noctalia.dev) v5 plugin for switching [MangoWM](https://man
 ## Installation
 
 ```bash
-# Clone the plugin
+# Via plugin manager (recommended)
+noctalia plugin add Collalaoo/mango-layouts
+
+# Or manually:
 git clone https://github.com/Collalaoo/mango-layouts.git
-mkdir -p ~/.local/share/noctalia/plugins/me
-cp -r mango-layouts ~/.local/share/noctalia/plugins/me/
-
-# Reload plugins in Noctalia
+mkdir -p ~/.local/share/noctalia/plugins/Collalaoo
+cp -r mango-layouts ~/.local/share/noctalia/plugins/Collalaoo/
 noctalia msg plugins reload
-
-# Enable the plugin
-noctalia msg plugins enable me/mango-layouts
+noctalia msg plugins enable Collalaoo/mango-layouts
 ```
 
 Then add the widget to your bar:

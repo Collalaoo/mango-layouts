@@ -73,7 +73,6 @@ local function startWatcher()
   end)
 end
 
-noctalia.state.set("all_layouts", LAYOUTS)
 noctalia.state.set("mmsg_available", mmsgAvailable)
 
 if mmsgAvailable then

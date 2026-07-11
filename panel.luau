@@ -156,7 +156,7 @@ local PREVIEWS = {
 }
 
 -- Register per-layout click handlers
-for _, l in LAYOUTS do
+for _, l in ipairs(LAYOUTS) do
   _G["onCardClick_" .. l.id] = function()
     if mmsgAvail then
       noctalia.runAsync({"mmsg", "-s", "-l", l.id})

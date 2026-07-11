@@ -55,7 +55,7 @@ local function render()
     barWidget.setGlyph(GLYPHS[currentLayout] or "layout")
   end
   barWidget.setText(NAMES[currentLayout] or currentLayout)
-  barWidget.setTooltip(`Layout: {currentLayout}`)
+  barWidget.setTooltip(string.format("Layout: %s", currentLayout))
 end
 
 noctalia.state.watch("layout", function(value)
@@ -69,10 +69,7 @@ noctalia.state.watch("mmsg_available", function(v)
   mmsgAvail = v
 end)
 
-function update()
-  noctalia.setUpdateInterval(0)
-  render()
-end
+-- initial render handled by state.watch callback
 
 function onClick()
   if not mmsgAvail then return end
@@ -84,17 +81,17 @@ function onClick()
         break
       end
     end
-    local next = CYCLE_ORDER[idx]
-    noctalia.runAsync({"mmsg", "-s", "-l", next})
-    currentLayout = next
+    local nextLayout = CYCLE_ORDER[idx]
+    noctalia.runAsync({"mmsg", "-s", "-l", nextLayout})
+    currentLayout = nextLayout
     render()
   else
-    noctalia.togglePanel("me/mango-layouts:preview")
+    noctalia.togglePanel("Collalaoo/mango-layouts:preview")
   end
 end
 
 function onRightClick()
   if mmsgAvail then
-    noctalia.togglePanel("me/mango-layouts:preview")
+    noctalia.togglePanel("Collalaoo/mango-layouts:preview")
   end
 end

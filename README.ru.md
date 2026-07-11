@@ -22,16 +22,15 @@
 ## Установка
 
 ```bash
-# Клонируем плагин
+# Через менеджер плагинов (рекомендуется)
+noctalia plugin add Collalaoo/mango-layouts
+
+# Или вручную:
 git clone https://github.com/Collalaoo/mango-layouts.git
-mkdir -p ~/.local/share/noctalia/plugins/me
-cp -r mango-layouts ~/.local/share/noctalia/plugins/me/
-
-# Перезагружаем плагины в Noctalia
+mkdir -p ~/.local/share/noctalia/plugins/Collalaoo
+cp -r mango-layouts ~/.local/share/noctalia/plugins/Collalaoo/
 noctalia msg plugins reload
-
-# Включаем плагин
-noctalia msg plugins enable me/mango-layouts
+noctalia msg plugins enable Collalaoo/mango-layouts
 ```
 
 Добавьте виджет в бар:

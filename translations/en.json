@@ -1,6 +1,5 @@
 {
   "title": "Mango Layouts",
-  "cycle_on_click": "Layout: {name}",
   "settings": {
     "cycle_on_click": {
       "label": "Cycle on click",
