@@ -4,9 +4,9 @@ A [Noctalia](https://noctalia.dev) v5 plugin for switching [MangoWM](https://man
 
 ## Features
 
-- **Bar widget** — shows current layout name and icon, cycles on click
-- **Preview panel** — 15 tiling layouts with visual previews (Tile, Scroller, Grid, Monocle, Deck, Center Tile, etc.)
-- **Pulse animation** — active layout card pulses gently so you instantly spot the current mode
+- **Bar widget** — shows current layout name and icon; left-click cycles the 3 main layouts (Tiling → Scroller → Dwindle)
+- **Preview panel** — 10 MangoWM layouts with animated previews; main 3 (Tiling, Scroller, Dwindle) shown by default, rest under a "More" toggle
+- **Pulse animation** — active layout card pulses; non-active cards have smooth opacity
 - **Bidirectional sync** — the plugin watches `mmsg -w` stream and polls `mmsg -g -l`; changing layout via keybind updates the widget instantly
 - **Control Center shortcut** — toggle the panel from the quick settings
 - **No QML/Quickshell** — pure Luau, runs in Noctalia v5's own plugin runtime
@@ -48,32 +48,25 @@ And optionally add the shortcut in **Settings → Control Center → Shortcuts**
 
 | Action | Result |
 |---|---|
-| **Left click** on bar widget | Cycle to next layout (or open panel — toggle in widget settings) |
+| **Left click** on bar widget | Cycle: Tiling → Scroller → Dwindle (wraps) |
 | **Right click** on bar widget | Open the Layout Switcher panel |
-| **Click a card** in the panel | Switch to that layout immediately |
+| **Click a card** in the panel | Switch to that layout immediately (Overview toggles overview mode) |
 | **Control Center** tile | Toggle panel |
 
 ### Widget settings
 
 Open **Settings → Plugins → Mango Layouts → Switcher**:
 
-- **Cycle on click** — when on, left click cycles layouts; when off, left click opens the panel
 - **Show glyph** — toggle the layout icon in the bar
 
 ## Panel layout previews
 
-The panel shows 15 MangoWM layouts as interactive cards, each with a miniature preview built from Noctalia's `ui.box` primitives:
+The panel shows the 3 main layouts (Tiling, Scroller, Dwindle) by default, with a **More** toggle that reveals the remaining 7. Each card has a miniature animated preview built from `ui.box` primitives.
 
-| Layout | Preview |
+| Section | Layouts |
 |---|---|
-| Tile | Master-stack: large left, stacked right |
-| Scroller | Horizontal strip of equal windows |
-| Grid | 2×2 window grid |
-| Monocle | Single full-surface window |
-| Deck | Stacked card overlap |
-| Center Tile | Centered master with stacks on both sides |
-| Dwindle | Recursive binary split |
-| *(and 8 more)* | |
+| **Main** (always visible) | Tiling, Scroller, Dwindle |
+| **More** (toggled) | Grid, Fair, Deck, Center Tile, Right Tile, Monocle, Overview (toggle) |
 
 The active layout card pulses with a smooth `sin()` opacity animation.
 

@@ -1,25 +1,19 @@
 --!nonstrict
--- Control Center [[shortcut]]: toggle the layout preview panel.
+-- [[shortcut]]: toggle the layout preview panel from Control Center.
 
 local NAMES = {
-  tile              = "Tile",
-  scroller          = "Scroller",
-  grid              = "Grid",
-  monocle           = "Monocle",
-  deck              = "Deck",
-  center_tile       = "Ctr Tile",
-  right_tile        = "R Tile",
-  vertical_tile     = "V Tile",
-  vertical_scroller = "V Scrll",
-  vertical_grid     = "V Grid",
-  vertical_deck     = "V Deck",
-  tgmix             = "TGMix",
-  dwindle           = "Dwindle",
-  fair              = "Fair",
-  vertical_fair     = "V Fair",
+  tiling      = "Tiling",
+  scroller    = "Scroller",
+  grid        = "Grid",
+  fair        = "Fair",
+  dwindle     = "Dwindle",
+  deck        = "Deck",
+  center_tile = "Center",
+  right_tile  = "R Tile",
+  monocle     = "Monocle",
 }
 
-local currentLayout = noctalia.state.get("layout") or "tile"
+local currentLayout = noctalia.state.get("layout") or "tiling"
 
 local function render()
   shortcut.setLabel(NAMES[currentLayout] or currentLayout)

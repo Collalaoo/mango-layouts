@@ -1,53 +1,45 @@
 --!nonstrict
--- Bar [[widget]]: shows current layout glyph + name.
--- Left-click: toggle panel / cycle depending on setting.
--- Right-click: cycle to next layout.
+-- [[widget]]: shows current layout glyph + name.
+-- Left-click: cycles main layouts (Tiling / Scroller / Dwindle)
+-- Right-click: open preview panel.
 
 local GLYPHS = {
-  tile              = "layout-distribute-horizontal",
-  scroller          = "layout-rows",
-  grid              = "layout-grid",
-  monocle           = "layout-single",
-  deck              = "layout-cards",
-  center_tile       = "layout-align-center",
-  right_tile        = "layout-align-right",
-  vertical_tile     = "layout-distribute-vertical",
-  vertical_scroller = "layout-columns",
-  vertical_grid     = "layout-grid",
-  vertical_deck     = "layout-cards",
-  tgmix             = "layout-distribute-horizontal",
-  dwindle           = "layout-distribute-horizontal",
-  fair              = "layout-distribute-horizontal",
-  vertical_fair     = "layout-distribute-vertical",
+  tiling       = "layout-distribute-horizontal",
+  scroller     = "layout-rows",
+  grid         = "layout-grid",
+  fair         = "layout-distribute-horizontal",
+  dwindle      = "layout-distribute-horizontal",
+  deck         = "layout-cards",
+  center_tile  = "layout-align-center",
+  right_tile   = "layout-align-right",
+  monocle      = "layout-single",
 }
 
 local NAMES = {
-  tile              = "Tile",
-  scroller          = "Scroller",
-  grid              = "Grid",
-  monocle           = "Monocle",
-  deck              = "Deck",
-  center_tile       = "Ctr Tile",
-  right_tile        = "R Tile",
-  vertical_tile     = "V Tile",
-  vertical_scroller = "V Scrll",
-  vertical_grid     = "V Grid",
-  vertical_deck     = "V Deck",
-  tgmix             = "TGMix",
-  dwindle           = "Dwindle",
-  fair              = "Fair",
-  vertical_fair     = "V Fair",
+  tiling       = "Tiling",
+  scroller     = "Scroller",
+  grid         = "Grid",
+  fair         = "Fair",
+  dwindle      = "Dwindle",
+  deck         = "Deck",
+  center_tile  = "Center",
+  right_tile   = "R Tile",
+  monocle      = "Monocle",
 }
 
-local CYCLE_ORDER = {
-  "tile", "scroller", "grid", "monocle", "deck",
-  "center_tile", "vertical_tile", "vertical_scroller",
-  "vertical_grid", "tgmix", "dwindle", "fair",
-}
+local MAIN_CYCLE = { "tiling", "scroller", "dwindle" }
 
-local currentLayout = noctalia.state.get("layout") or "tile"
+local function cycleNext(layout)
+  for i, name in ipairs(MAIN_CYCLE) do
+    if name == layout then
+      return MAIN_CYCLE[(i % #MAIN_CYCLE) + 1]
+    end
+  end
+  return MAIN_CYCLE[1]
+end
+
+local currentLayout = noctalia.state.get("layout") or "tiling"
 local mmsgAvail = noctalia.state.get("mmsg_available")
-local cycleOnClick = barWidget.getConfig("cycle_on_click")
 local showGlyph = barWidget.getConfig("show_glyph")
 
 local function render()
@@ -55,7 +47,7 @@ local function render()
     barWidget.setGlyph(GLYPHS[currentLayout] or "layout")
   end
   barWidget.setText(NAMES[currentLayout] or currentLayout)
-  barWidget.setTooltip(string.format("Layout: %s", currentLayout))
+  barWidget.setTooltip(string.format("Layout: %s", NAMES[currentLayout] or currentLayout))
 end
 
 noctalia.state.watch("layout", function(value)
@@ -69,25 +61,10 @@ noctalia.state.watch("mmsg_available", function(v)
   mmsgAvail = v
 end)
 
--- initial render handled by state.watch callback
-
 function onClick()
   if not mmsgAvail then return end
-  if cycleOnClick then
-    local idx = 1
-    for i, name in ipairs(CYCLE_ORDER) do
-      if name == currentLayout then
-        idx = (i % #CYCLE_ORDER) + 1
-        break
-      end
-    end
-    local nextLayout = CYCLE_ORDER[idx]
-    noctalia.runAsync({"mmsg", "-s", "-l", nextLayout})
-    currentLayout = nextLayout
-    render()
-  else
-    noctalia.togglePanel("Collalaoo/mango-layouts:preview")
-  end
+  local next = cycleNext(currentLayout)
+  noctalia.runAsync({"mmsg", "-s", "-l", next})
 end
 
 function onRightClick()
